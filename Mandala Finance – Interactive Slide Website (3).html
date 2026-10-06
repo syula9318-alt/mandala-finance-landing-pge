@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mandala Finance – Informasi & Konsultasi Pembiayaan</title>
+<meta name="description" content="Ajukan pembiayaan dengan proses yang mudah dan dapatkan informasi langsung dari sales Mandala Finance.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --navy:#0B1F66;--blue:#1747C9;--sky:#3C92F5;--y:#FFC531;
+  --bg:#F4F7FF;--card:#fff;--ink:#0F1B4A;--muted:#55628A;--line:#DCE4F7;--wa:#16A34A;
+  --f:'Plus Jakarta Sans','Segoe UI',system-ui,sans-serif;--ease:cubic-bezier(.76,0,.24,1);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--blue:#10339A;--sky:#2368CC;--bg:#0A1233;--card:#131C47;--ink:#EAF0FF;--muted:#A5B2DD;--line:#25306A}}
+:root[data-theme="dark"]{--blue:#10339A;--sky:#2368CC;--bg:#0A1233;--card:#131C47;--ink:#EAF0FF;--muted:#A5B2DD;--line:#25306A}
+html,body{height:100%;margin:0;background:var(--navy)}
+*,*::before,*::after{box-sizing:inherit}
+body{overflow:hidden;color:var(--ink);font:400 16px/1.65 var(--f)}
+a{color:inherit;text-decoration:none}h1,h2,h3,p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:800 14px var(--f);letter-spacing:.06em;text-transform:uppercase;padding:15px 28px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-y{background:var(--y);color:var(--navy)}.btn-y:hover{background:#fff}
+.btn-o{color:#fff;background:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}.btn-o:hover{background:#fff;color:var(--navy)}
+.btn-n{background:var(--navy);color:#fff}.btn-n:hover{background:var(--blue)}
+.btn-w{background:var(--wa);color:#fff}
+
+/* intro */
+#intro{position:fixed;inset:0;z-index:200;background:var(--navy);display:grid;place-items:center;transition:opacity .5s .1s,visibility .6s}
+#intro b{font:800 clamp(40px,9vw,110px)/.95 var(--f);letter-spacing:-.04em;color:#fff;text-align:center;transition:transform .6s var(--ease),opacity .5s;animation:pop .6s var(--ease) both}
+#intro b i{display:block;font-style:normal;color:var(--y)}
+#intro.out{opacity:0;visibility:hidden}#intro.out b{transform:translate(-30vw,-34vh) scale(.25);opacity:0}
+@keyframes pop{from{opacity:0;transform:translateY(24px)}}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(11,31,102,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:14px;height:66px;padding:0 24px;max-width:1280px;margin:0 auto}
+.logo{font:800 19px var(--f);cursor:pointer;background:none;border:0;color:#fff;padding:0}.logo i{font-style:normal;color:var(--y)}
+.menu{position:relative;display:flex;gap:2px;font-size:14px;font-weight:600}
+.menu a{position:relative;z-index:1;padding:9px 16px;border-radius:999px;opacity:.82;cursor:pointer;transition:opacity .2s,color .3s}
+.menu a:hover{opacity:1}.menu a[aria-current=page]{opacity:1;color:var(--navy)}
+.ind{position:absolute;top:0;bottom:0;left:0;width:0;background:var(--y);border-radius:999px;transition:left .6s var(--ease),width .6s var(--ease)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:#fff;margin:5px auto}
+
+/* stage + slides */
+#stage{position:fixed;inset:0;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;overflow:hidden;will-change:transform}
+.scroll{height:100%;overflow-y:auto;overflow-x:hidden;padding:66px 0 0;display:flex;flex-direction:column;overscroll-behavior:contain}
+.pg{flex:1;display:flex;flex-direction:column;justify-content:center;width:100%;max-width:1160px;margin:0 auto;padding:44px 24px 96px;min-height:calc(100svh - 66px)}
+.s0{background:linear-gradient(170deg,var(--navy),var(--blue) 55%,var(--sky));color:#fff}
+.s1{background:var(--navy);color:#fff}
+.s2{background:var(--bg)}
+.s3{background:linear-gradient(170deg,var(--blue),var(--sky));color:#fff}
+.s4{background:var(--bg)}
+.s5{background:linear-gradient(170deg,var(--navy),var(--blue));color:#fff}
+.t{font:800 clamp(30px,5.4vw,66px)/1 var(--f);letter-spacing:-.035em;text-transform:uppercase;margin-bottom:12px}
+.sub{max-width:56ch;margin-bottom:28px;opacity:.85}.s2 .sub,.s4 .sub{color:var(--muted);opacity:1}
+.note{font-size:13px;margin-top:16px;opacity:.8}
+.rise{opacity:0}
+.slide.act .rise{opacity:1;animation:rise .8s var(--ease) backwards;animation-delay:calc(var(--d,0)*.09s + .05s)}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}}
+
+/* home */
+.ghost{position:absolute;left:-1%;top:110px;font:800 clamp(120px,24vw,340px)/1 var(--f);letter-spacing:-.05em;color:rgba(255,255,255,.06);white-space:nowrap;pointer-events:none}
+.hero{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+.hero h1{position:relative;z-index:2;font:800 clamp(40px,8vw,112px)/.93 var(--f);letter-spacing:-.045em;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero .lead{margin:22px 0 28px;max-width:44ch;font-size:18px;opacity:.92}
+.cta{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:2}
+.vis{width:100%;max-width:540px;justify-self:end;transition:transform .3s}
+.fc{position:absolute;z-index:3;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:20px;padding:12px 16px;max-width:220px}
+.fc b{display:block;font:800 12px var(--f);letter-spacing:.08em;color:var(--y)}.fc span{font-size:14px}
+.fc1{right:2%;top:6%}.fc2{right:36%;bottom:2%}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:24px;padding:24px;transition:transform .25s,border-color .25s}
+.slide .card:hover{transform:translateY(-6px);border-color:var(--y)}
+.s1 .card{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.18);display:flex;flex-direction:column;gap:12px;text-align:left;cursor:pointer;width:100%}
+.s1 .card p{opacity:.78}
+.ic{width:52px;height:52px;border-radius:16px;background:var(--y);color:var(--navy);display:grid;place-items:center;font-size:24px}
+.card h3{font:800 19px/1.2 var(--f)}.card p{color:var(--muted);font-size:15px}
+.s1 .card .more{margin-top:auto;font:800 13px var(--f);letter-spacing:.06em;text-transform:uppercase;color:var(--y)}
+
+/* simulator / form */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:28px;padding:28px}
+label{display:block;font-weight:600;font-size:14px;margin:0 0 6px}.fld{margin-bottom:14px}
+input,select,textarea{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);font:500 16px var(--f)}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:0}
+.err{color:#E11D48;font-size:13px;min-height:18px;margin-top:4px}
+.res{background:linear-gradient(160deg,var(--blue),var(--navy));color:#fff;display:flex;flex-direction:column;justify-content:center;gap:6px;border:0}
+.res .big{font:800 clamp(30px,4.4vw,52px)/1.05 var(--f);letter-spacing:-.03em;color:var(--y)}.res small{opacity:.85}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.status{margin-top:12px;padding:14px 16px;border-radius:14px;font-size:15px;display:none}
+.status.ok{display:block;background:#DCFCE7;color:#14532D}.status.ok .btn{margin-top:10px}
+.status.wait{display:block;background:var(--bg);color:var(--muted)}
+
+/* faq */
+.acc{max-width:820px}
+.ai{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px}
+.ai button{width:100%;text-align:left;background:none;border:0;font:700 16px var(--f);padding:17px 22px;display:flex;justify-content:space-between;gap:14px;cursor:pointer}
+.ai button::after{content:"+";font-size:24px;line-height:1;color:var(--blue);transition:transform .3s}.ai.open button::after{transform:rotate(45deg)}
+.ab{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s}.ai.open .ab{grid-template-rows:1fr}
+.ab>div{overflow:hidden;padding:0 22px;color:var(--muted)}.ai.open .ab>div{padding-bottom:17px}
+
+/* dialog */
+dialog{border:0;border-radius:28px;padding:28px;width:min(520px,calc(100% - 24px));background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(5,12,50,.65)}
+dialog h2{font:800 26px var(--f);margin-bottom:6px}
+.rows{margin:16px 0;border-top:1px solid var(--line)}.rows div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}.rows span{color:var(--muted);text-align:right}
+.dacts{display:flex;gap:10px;flex-wrap:wrap}
+
+/* chrome */
+.pager{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:6px;background:rgba(11,31,102,.9);color:#fff;border-radius:999px;padding:4px;backdrop-filter:blur(10px)}
+.pager button{width:40px;height:40px;border-radius:50%;border:0;background:none;color:#fff;font-size:20px;cursor:pointer}.pager button:hover{background:rgba(255,255,255,.18)}
+.pager span{font:700 13px var(--f);min-width:56px;text-align:center;letter-spacing:.06em}
+.wab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--wa);color:#fff;font:800 14px var(--f);padding:14px 20px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center;transition:transform .2s}.wab:hover{transform:scale(1.06)}
+
+.mcta{display:none}
+.final{background:var(--y);color:var(--navy);border-radius:clamp(22px,4vw,36px);text-align:center;padding:clamp(28px,6vw,56px) clamp(18px,4vw,32px);margin-top:clamp(24px,5vw,44px)}
+.final h2{font:800 clamp(1.7rem,5.4vw,3.6rem)/1 var(--f);letter-spacing:-.035em;text-transform:uppercase;max-width:14em;margin:0 auto 10px}
+.final p{max-width:46ch;margin:0 auto 20px;font-weight:500}
+@media (max-width:980px){
+  .nav .in{padding:0 clamp(14px,4vw,24px)}
+  .nav .in>.btn{display:none}
+  .burger{display:block;position:relative;z-index:2}
+  .burger span{transition:transform .4s var(--ease),opacity .3s}
+  .burger[aria-expanded=true] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger[aria-expanded=true] span:nth-child(2){opacity:0}
+  .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .menu{position:fixed;top:100%;left:0;right:0;height:calc(100svh - 66px - env(safe-area-inset-top,0px));background:linear-gradient(170deg,var(--navy),var(--blue));flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;padding:24px clamp(20px,7vw,48px);visibility:hidden;opacity:0;transform:translateY(-16px);transition:opacity .4s,transform .5s var(--ease),visibility 0s .5s}
+  .menu.open{visibility:visible;opacity:1;transform:none;transition:opacity .4s,transform .5s var(--ease)}
+  .menu a{font:800 clamp(1.8rem,8.5vw,3.2rem)/1.15 var(--f);letter-spacing:-.03em;text-transform:uppercase;padding:6px 0;border-radius:0;opacity:0;transform:translateX(-24px);transition:opacity .4s,transform .5s var(--ease),color .2s}
+  .menu.open a{opacity:.92;transform:none}
+  .menu.open a:nth-of-type(2){transition-delay:.06s}.menu.open a:nth-of-type(3){transition-delay:.12s}.menu.open a:nth-of-type(4){transition-delay:.18s}.menu.open a:nth-of-type(5){transition-delay:.24s}.menu.open a:nth-of-type(6){transition-delay:.3s}
+  .menu a[aria-current=page]{color:var(--y);opacity:1;background:none}
+  .ind{display:none}.mcta{display:inline-flex;margin-top:22px}
+  .pg{padding:clamp(22px,4vw,44px) clamp(14px,4vw,24px) 104px}
+  .hero{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .hl{display:contents}
+  .hero h1{order:1;font-size:clamp(3rem,13.4vw,7rem)}
+  .vis{order:2;width:min(100%,480px);max-width:none;margin:clamp(-48px,-7vw,-18px) auto 0;position:relative;z-index:1}
+  .hero .lead{order:3;font-size:clamp(.95rem,3.8vw,1.15rem);margin:clamp(8px,2vw,18px) 0 clamp(14px,3vw,22px);max-width:40ch}
+  .cta{order:4}.cta .btn{padding:clamp(12px,3.4vw,15px) clamp(18px,5vw,28px);font-size:clamp(.75rem,3.2vw,.875rem)}
+  .fc{display:block;padding:clamp(8px,2.4vw,12px) clamp(10px,3vw,16px);max-width:clamp(130px,42vw,220px);border-radius:16px}
+  .fc b{font-size:clamp(9px,2.6vw,12px)}.fc span{display:block;font-size:clamp(11px,3.2vw,14px);line-height:1.3}
+  .fc1{right:0;left:auto;top:min(27vw,220px)}.fc2{left:0;right:auto;bottom:auto;top:min(86vw,540px)}
+  .grid{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}
+}
+@media (min-width:700px) and (max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.row2{grid-template-columns:1fr}.wab span{display:none}.wab{padding:16px}.panel{padding:20px;border-radius:22px}.card{padding:18px;border-radius:20px}}
+@media (max-width:380px){.grid4 .card h3{font-size:16px}.grid4 .card p{font-size:13px}}
+@media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none}.slide.act .rise{animation:none}#intro{display:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="intro" aria-hidden="true"><b>MANDALA<i>FINANCE</i></b></div>
+
+<header class="nav"><div class="in">
+  <button class="logo" data-go="0" aria-label="Ke Beranda">MANDALA <i>FINANCE</i></button>
+  <nav class="menu" id="menu" aria-label="Menu utama"><span class="ind" id="ind"></span>
+    <a data-go="0" tabindex="0" role="link">Beranda</a><a data-go="1" tabindex="0" role="link">Produk Pinjaman</a><a data-go="2" tabindex="0" role="link">Simulasi</a><a data-go="3" tabindex="0" role="link">Persyaratan</a><a data-go="4" tabindex="0" role="link">FAQ</a><a data-go="5" tabindex="0" role="link">Kontak</a><button class="btn btn-y mcta" data-go="5">Ajukan sekarang</button>
+  </nav>
+  <button class="btn btn-y" data-go="5">Ajukan sekarang</button>
+  <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></header>
+
+<main id="stage">
+<!-- 0 HOME -->
+<section class="slide s0" aria-label="Beranda"><div class="scroll"><div class="pg">
+  <div class="ghost" aria-hidden="true">MANDALA</div>
+  <div class="hero">
+    <div class="hl">
+      <h1 class="rise" style="--d:1">Butuh dana? <em>Solusinya di sini.</em></h1>
+      <p class="lead rise" style="--d:3">Ajukan pembiayaan dengan proses yang mudah dan dapatkan informasi pinjaman langsung dari sales Mandala Finance.</p>
+      <div class="cta rise" style="--d:4"><button class="btn btn-y" data-go="5">Ajukan sekarang</button><button class="btn btn-o" data-go="1">Lihat produk</button></div>
+    </div>
+    <svg class="vis rise" id="vis" style="--d:2" viewBox="0 0 520 520" fill="none" role="img" aria-label="Ilustrasi smartphone, dokumen pengajuan, dan koin">
+      <circle cx="270" cy="270" r="230" fill="#fff" fill-opacity=".08"/><circle cx="270" cy="270" r="160" fill="#fff" fill-opacity=".08"/>
+      <g transform="rotate(-9 150 300)"><rect x="40" y="170" width="220" height="280" rx="22" fill="#fff"/><rect x="66" y="200" width="90" height="12" rx="6" fill="#0B1F66"/><rect x="66" y="228" width="170" height="8" rx="4" fill="#DCE4F7"/><rect x="66" y="248" width="150" height="8" rx="4" fill="#DCE4F7"/><rect x="66" y="268" width="170" height="8" rx="4" fill="#DCE4F7"/><rect x="66" y="320" width="100" height="36" rx="18" fill="#FFC531"/><path d="M82 338l8 8 16-16" stroke="#0B1F66" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g transform="rotate(7 340 280)"><rect x="240" y="90" width="210" height="400" rx="34" fill="#0B1F66" stroke="#fff" stroke-opacity=".5" stroke-width="3"/><rect x="254" y="108" width="182" height="364" rx="24" fill="#EAF0FF"/><rect x="310" y="116" width="70" height="14" rx="7" fill="#0B1F66"/><rect x="270" y="160" width="150" height="14" rx="7" fill="#0B1F66"/><rect x="270" y="186" width="100" height="9" rx="4" fill="#9FB0E8"/><rect x="270" y="222" width="150" height="86" rx="16" fill="#1747C9"/><text x="284" y="258" font-family="Arial" font-weight="800" font-size="13" fill="#FFC531">CICILAN / BULAN</text><text x="284" y="288" font-family="Arial" font-weight="800" font-size="24" fill="#fff">Rp • • •</text><rect x="270" y="334" width="26" height="60" rx="6" fill="#9FB0E8"/><rect x="306" y="314" width="26" height="80" rx="6" fill="#3C92F5"/><rect x="342" y="344" width="26" height="50" rx="6" fill="#9FB0E8"/><rect x="378" y="304" width="26" height="90" rx="6" fill="#FFC531"/><rect x="270" y="414" width="150" height="38" rx="19" fill="#16A34A"/><text x="345" y="438" text-anchor="middle" font-family="Arial" font-weight="800" font-size="13" fill="#fff">HUBUNGI SALES</text></g>
+      <g font-family="Arial" font-weight="800" font-size="20" fill="#0B1F66" text-anchor="middle"><circle cx="470" cy="130" r="30" fill="#FFC531" stroke="#E0A400" stroke-width="5"/><text x="470" y="138">Rp</text><circle cx="90" cy="110" r="22" fill="#FFC531" stroke="#E0A400" stroke-width="4"/><text x="90" y="117" font-size="15">Rp</text><circle cx="440" cy="470" r="24" fill="#FFC531" stroke="#E0A400" stroke-width="4"/><text x="440" y="477" font-size="16">Rp</text></g>
+    </svg>
+    <div class="fc fc1"><b>PROSES MUDAH</b><span>Informasi & bantuan dari sales</span></div>
+    <div class="fc fc2"><b>LAYANAN PERSONAL</b><span>Konsultasi langsung dengan sales</span></div>
+  </div>
+</div></div></section>
+
+<!-- 1 PRODUK -->
+<section class="slide s1" aria-label="Produk Pinjaman"><div class="scroll"><div class="pg">
+  <h2 class="t rise" style="--d:0">Pilih solusi pembiayaan</h2>
+  <p class="sub rise" style="--d:1">Temukan pilihan pembiayaan yang sesuai dengan kebutuhan Anda.</p>
+  <div class="grid" id="products"></div>
+  <p class="note">Nama dan detail produk bersifat placeholder. Ganti dengan data resmi Mandala Finance pada CONFIG.products.</p>
+</div></div></section>
+
+<!-- 2 SIMULASI -->
+<section class="slide s2" aria-label="Simulasi"><div class="scroll"><div class="pg">
+  <h2 class="t rise" style="--d:0">Simulasikan cicilan Anda</h2>
+  <p class="sub rise" style="--d:1">Masukkan jumlah dan tenor untuk melihat gambaran cicilan per bulan.</p>
+  <div class="two rise" style="--d:2" data-noswipe>
+    <form class="panel" id="simForm" novalidate data-noswipe>
+      <div class="fld"><label for="amt">Jumlah pembiayaan</label><input id="amt" inputmode="numeric" autocomplete="off" value="Rp 10.000.000"><div class="err" id="amtErr" role="alert"></div></div>
+      <div class="fld"><label for="ten">Tenor</label><select id="ten"></select></div>
+      <button class="btn btn-n" type="submit" style="width:100%">Hitung simulasi</button>
+      <p class="note" style="color:var(--muted)">Simulasi hanya merupakan estimasi dan bukan merupakan persetujuan pembiayaan. Hasil akhir mengikuti ketentuan dan keputusan perusahaan.</p>
+    </form>
+    <div class="panel res" aria-live="polite">
+      <small>Estimasi cicilan</small><div class="big" id="monthly">–</div><small id="simNote">–</small>
+      <a class="btn btn-y" id="simWa" href="#" target="_blank" rel="noopener" style="margin-top:14px;align-self:flex-start">Tanya sales tentang simulasi ini</a>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- 3 PERSYARATAN -->
+<section class="slide s3" aria-label="Persyaratan"><div class="scroll"><div class="pg">
+  <h2 class="t rise" style="--d:0">Siapkan dokumen Anda</h2>
+  <p class="sub rise" style="--d:1">Dokumen yang umumnya diperlukan untuk konsultasi awal.</p>
+  <div class="grid grid4">
+    <article class="card rise" style="--d:2"><div class="ic" aria-hidden="true">🪪</div><h3 style="margin:14px 0 6px">KTP</h3><p>Dapatkan informasi dokumen identitas yang diperlukan.</p></article>
+    <article class="card rise" style="--d:3"><div class="ic" aria-hidden="true">📄</div><h3 style="margin:14px 0 6px">Dokumen pendukung</h3><p>Dokumen dapat berbeda sesuai jenis pembiayaan.</p></article>
+    <article class="card rise" style="--d:4"><div class="ic" aria-hidden="true">📱</div><h3 style="margin:14px 0 6px">Data kontak</h3><p>Pastikan informasi kontak dapat dihubungi.</p></article>
+    <article class="card rise" style="--d:5"><div class="ic" aria-hidden="true">➕</div><h3 style="margin:14px 0 6px">Dokumen tambahan</h3><p>Dokumen tambahan dapat diperlukan sesuai ketentuan.</p></article>
+  </div>
+  <p class="note">Persyaratan dapat berbeda sesuai jenis pembiayaan dan ketentuan yang berlaku. Daftar ini belum final sebelum dikonfirmasi dengan informasi resmi Mandala Finance.</p>
+</div></div></section>
+
+<!-- 4 FAQ -->
+<section class="slide s4" aria-label="FAQ"><div class="scroll"><div class="pg">
+  <h2 class="t rise" style="--d:0">Pertanyaan umum</h2>
+  <p class="sub rise" style="--d:1">Jawaban singkat sebelum Anda mengajukan.</p>
+  <div class="acc" id="acc" data-noswipe></div>
+</div></div></section>
+
+<!-- 5 KONTAK -->
+<section class="slide s5" aria-label="Kontak"><div class="scroll"><div class="pg">
+  <div class="two" style="align-items:center">
+    <div><h2 class="t rise" style="--d:0;font-size:clamp(38px,6.6vw,88px)">Siap <span style="color:var(--y)">konsultasi?</span></h2><p class="sub rise" style="--d:1;font-size:18px">Isi data Anda dan sales kami akan membantu memberikan informasi mengenai pilihan pembiayaan.</p></div>
+    <form class="panel rise" style="--d:2" id="leadForm" novalidate data-noswipe>
+      <div class="row2">
+        <div class="fld"><label for="nm">Nama lengkap</label><input id="nm" autocomplete="name"><div class="err" id="nmErr"></div></div>
+        <div class="fld"><label for="wa">Nomor WhatsApp</label><input id="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"><div class="err" id="waErr"></div></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label for="kt">Kota</label><input id="kt" autocomplete="address-level2"></div>
+        <div class="fld"><label for="jn">Jenis pembiayaan</label><select id="jn"></select></div>
+      </div>
+      <div class="fld"><label for="nl">Jumlah dana / nilai kendaraan</label><input id="nl" inputmode="numeric" placeholder="Rp"></div>
+      <div class="fld"><label for="ps">Pesan</label><textarea id="ps" rows="3"></textarea></div>
+      <button class="btn btn-y" type="submit" style="width:100%;padding:18px">Hubungi sales</button>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+      <p class="note" style="color:var(--muted)">Website ini merupakan media informasi dan konsultasi sales. Informasi pembiayaan, persetujuan, biaya, bunga, tenor, dan persyaratan mengikuti ketentuan resmi Mandala Finance yang berlaku.</p>
+    </form>
+  </div>
+  <div class="final rise" style="--d:3"><h2>Jangan biarkan kebutuhan menunggu.</h2><p>Konsultasikan kebutuhan pembiayaan Anda bersama sales Mandala Finance.</p><button class="btn btn-n" id="finalCta" type="button">Ajukan sekarang</button></div>
+</div></div></section>
+</main>
+
+<dialog id="pd" aria-labelledby="pdT"><h2 id="pdT"></h2><p id="pdD" style="color:var(--muted)"></p><div class="rows" id="pdR"></div>
+  <div class="dacts"><a class="btn btn-w" id="pdWa" target="_blank" rel="noopener" href="#">Chat sales</a><a class="btn btn-n" id="pdMore" target="_blank" rel="noopener" href="#" style="display:none">Informasi lengkap</a><button class="btn btn-o" id="pdSim" style="color:var(--navy);box-shadow:inset 0 0 0 2px var(--line)">Hitung simulasi</button><button class="btn btn-o" id="pdX" style="color:var(--navy);box-shadow:inset 0 0 0 2px var(--line)">Tutup</button></div>
+</dialog>
+
+<div class="pager" aria-label="Navigasi halaman"><button id="prev" aria-label="Halaman sebelumnya">‹</button><span id="count" aria-live="polite">01 / 06</span><button id="next" aria-label="Halaman berikutnya">›</button></div>
+<a class="wab" id="wab" href="#" target="_blank" rel="noopener" aria-label="Chat sales lewat WhatsApp"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4.1.1.1.6-.1 1.1z"/></svg><span>Chat Sales</span></a>
+
+<script>
+/* ===== KONFIGURASI: ubah di sini ===== */
+const CONFIG={
+  whatsapp:"6282293978422",                 // GANTI: nomor WA sales (format 62...)
+  routeMode:"hash",                         // "hash" = /#/produk (aman di hosting statis & pratinjau) | "path" = /produk (butuh fallback 404.html/SPA rewrite)
+  basePath:"",                              // untuk routeMode "path" di subfolder, mis. "/mandala"
+  ratePerMonth:null,                        // GANTI: bunga flat per bulan (%) bila sudah resmi; null = belum tersedia
+  minAmount:1000000,maxAmount:500000000,
+  tenors:[6,12,18,24,36],                   // GANTI sesuai produk resmi
+  formEndpoint:null,                        // opsional: URL penerima data form (backend sendiri)
+  info:[{label:"Plafon pembiayaan",value:null},{label:"Tenor",value:null},{label:"Bunga / margin",value:null},{label:"Uang muka (DP)",value:null},{label:"Biaya administrasi & lainnya",value:null},{label:"Asuransi",value:null}],
+  products:[                                // GANTI dengan produk & deskripsi resmi
+    {name:"Pembiayaan Motor",desc:"Solusi pembiayaan kendaraan untuk kebutuhan Anda.",icon:"🏍️",url:"https://claude.ai/artifact/LH63JChYDXqtDAGFNiKbiK"},
+    {name:"Pembiayaan Mobil",desc:"Informasi pembiayaan kendaraan sesuai ketentuan yang berlaku.",icon:"🚗"},
+    {name:"Pembiayaan Multiguna",desc:"Solusi pembiayaan untuk kebutuhan dana Anda.",icon:"💼"}
+  ],
+  faq:[
+    ["Bagaimana cara mengajukan pembiayaan?","Hubungi sales melalui formulir atau WhatsApp, sampaikan kebutuhan Anda, lalu lengkapi data dan dokumen yang diminta."],
+    ["Apa saja dokumen yang diperlukan?","Umumnya KTP dan dokumen pendukung sesuai jenis pembiayaan. Daftar pastinya dikonfirmasi oleh sales."],
+    ["Berapa lama proses pengajuan?","Lama proses bergantung pada kelengkapan data, verifikasi, dan ketentuan perusahaan. Sales akan memberi gambaran saat konsultasi."],
+    ["Apakah saya bisa melakukan simulasi?","Bisa. Gunakan halaman Simulasi. Hasilnya hanya estimasi dan bukan persetujuan pembiayaan."],
+    ["Bagaimana cara mengetahui status pengajuan?","Tanyakan langsung kepada sales yang mendampingi Anda."],
+    ["Apakah persyaratan setiap produk berbeda?","Bisa berbeda. Persyaratan mengikuti jenis pembiayaan dan ketentuan yang berlaku."],
+    ["Bagaimana cara menghubungi sales?","Klik tombol Chat Sales atau isi formulir di halaman Kontak."]
+  ]
+};
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var ROUTES=["","produk","simulasi","persyaratan","faq","kontak"],N=ROUTES.length;
+  var rp=function(n){return "Rp "+Math.round(n).toLocaleString("id-ID")};
+  var num=function(s){return parseInt(String(s).replace(/\D/g,""),10)||0};
+  var wa=function(t){return "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(t)};
+  var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var slides=[].slice.call(document.querySelectorAll(".slide"));
+  var links=[].slice.call(document.querySelectorAll(".menu a"));
+  var cur=-1,busy=false,pending=null,target=0,lastNav=0,lastInner=0,dlg=$("pd");
+  var DUR=reduce?0:700,EASE="cubic-bezier(0.76,0,0.24,1)";
+
+  /* ---- routing ---- */
+  function routeIndex(){
+    var p=CONFIG.routeMode==="path"?location.pathname.replace(CONFIG.basePath,""):location.hash;
+    p=p.replace(/^#?\/?/,"").replace(/\/$/,"");var i=ROUTES.indexOf(p);return i<0?0:i;
+  }
+  function pushRoute(i){
+    var url=CONFIG.routeMode==="path"?CONFIG.basePath+"/"+ROUTES[i]:"#/"+ROUTES[i];
+    try{history.pushState({i:i},"",url)}catch(e){}
+  }
+
+  /* ---- indikator menu & penghitung ---- */
+  function mark(i){
+    links.forEach(function(a,k){if(k===i)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+    var a=links[i],ind=$("ind");ind.style.left=a.offsetLeft+"px";ind.style.width=a.offsetWidth+"px";
+    $("count").textContent=("0"+(i+1)).slice(-2)+" / 0"+N;$("prev").disabled=i===0;$("next").disabled=i===N-1;
+    $("prev").style.opacity=i===0?.35:1;$("next").style.opacity=i===N-1?.35:1;
+    document.title=(i?links[i].textContent+" – ":"")+"Mandala Finance";
+  }
+
+  /* ---- transisi slide ---- */
+  function slideAnim(el,from,to,done){
+    var a=el.animate([{transform:"translateX("+from+"%)",opacity:from===0?1:0},{transform:"translateX("+to+"%)",opacity:to===0?1:0}],{duration:DUR,easing:EASE,fill:"both"});
+    a.onfinish=function(){done(a)};
+  }
+  function go(i,fromPop){
+    if(i<0||i>=N)return;
+    if(dlg.open)dlg.close();
+    closeMenu();
+    if(busy){pending=i;return}
+    if(i===cur)return;
+    var first=cur<0,dir=i>cur?1:-1,nw=slides[i],old=first?null:slides[cur];
+    target=i;mark(i);if(!fromPop&&!first)pushRoute(i);
+    busy=true;lastNav=Date.now();
+    var enter=function(){
+      slides.forEach(function(s){s.classList.remove("act")});
+      nw.style.display="block";nw.querySelector(".scroll").scrollTop=0;nw.classList.add("act");
+      if(first){cur=i;busy=false;return}
+      slideAnim(nw,dir*100,0,function(a){a.cancel();cur=i;busy=false;lastNav=Date.now();if(pending!=null){var p=pending;pending=null;go(p)}});
+    };
+    if(first)enter();
+    else slideAnim(old,0,-dir*100,function(a){a.cancel();old.style.display="none";old.classList.remove("act");enter()});
+  }
+  var step=function(d){go(Math.max(0,Math.min(N-1,(busy&&pending!=null?pending:target)+d)))};
+
+  /* ---- input: klik, roda, keyboard, swipe, history ---- */
+  document.addEventListener("click",function(e){var g=e.target.closest("[data-go]");if(g)go(+g.getAttribute("data-go"))});
+  links.forEach(function(a){a.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go(+a.getAttribute("data-go"))}})});
+  $("prev").onclick=function(){step(-1)};$("next").onclick=function(){step(1)};
+  addEventListener("popstate",function(){go(routeIndex(),true)});
+  addEventListener("resize",function(){mark(target)});
+  var closeMenu=function(){$("menu").classList.remove("open");$("burger").setAttribute("aria-expanded","false")};
+  $("burger").onclick=function(){var o=$("menu").classList.toggle("open");this.setAttribute("aria-expanded",o)};
+  slides.forEach(function(s){s.querySelector(".scroll").addEventListener("scroll",function(){lastInner=Date.now()},{passive:true})});
+
+  var typing=function(el){return el&&el.closest&&el.closest("input,textarea,select,[contenteditable]")};
+  var menuOpen=function(){return $("menu").classList.contains("open")};
+  addEventListener("wheel",function(e){
+    if(dlg.open||menuOpen()||busy||typing(e.target)||e.ctrlKey||Math.abs(e.deltaY)<35||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;
+    var now=Date.now();if(now-lastNav<1500||now-lastInner<450)return;
+    var sc=e.target.closest(".scroll");
+    if(sc&&sc.scrollHeight>sc.clientHeight+2){
+      if(e.deltaY>0&&sc.scrollTop+sc.clientHeight<sc.scrollHeight-2)return;
+      if(e.deltaY<0&&sc.scrollTop>2)return;
+    }
+    step(e.deltaY>0?1:-1);
+  },{passive:true});
+  addEventListener("keydown",function(e){
+    if(dlg.open||menuOpen()||typing(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;
+    if(e.key==="ArrowRight")step(1);else if(e.key==="ArrowLeft")step(-1);
+    else if(e.key==="Home"){e.preventDefault();go(0)}else if(e.key==="End"){e.preventDefault();go(N-1)}
+  });
+  var tx=0,ty=0,tOk=false;
+  addEventListener("touchstart",function(e){var t=e.touches[0];tx=t.clientX;ty=t.clientY;tOk=!e.target.closest("[data-noswipe],input,textarea,select,dialog,.menu,.pager")},{passive:true});
+  addEventListener("touchend",function(e){
+    if(!tOk||dlg.open||menuOpen())return;var t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;
+    if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.6)step(dx<0?1:-1);
+  },{passive:true});
+
+  /* ---- produk ---- */
+  var jn=$("jn"),nl=$("nl");nl.addEventListener("input",function(){var v=num(nl.value);nl.value=v?rp(v):""});
+  CONFIG.products.forEach(function(p,k){
+    var b=document.createElement("button");b.className="card rise";b.style.setProperty("--d",k+2);b.type="button";
+    b.innerHTML='<div class="ic" aria-hidden="true">'+p.icon+'</div><h3 style="text-transform:uppercase"></h3><p></p><span class="more">Lihat detail →</span>';
+    b.querySelector("h3").textContent=p.name;b.querySelector("p").textContent=p.desc;
+    b.onclick=function(){openProduct(p)};$("products").appendChild(b);jn.add(new Option(p.name,p.name));
+  });
+  jn.add(new Option("Belum tahu / ingin konsultasi","Konsultasi umum"));
+  function openProduct(p){
+    $("pdT").textContent=p.name;$("pdD").textContent=p.desc;
+    var r=$("pdR");r.innerHTML="";CONFIG.info.forEach(function(x){var d=document.createElement("div"),a=document.createElement("b"),s=document.createElement("span");a.textContent=x.label;s.textContent=x.value||"Konfirmasi ke sales";d.appendChild(a);d.appendChild(s);r.appendChild(d)});
+    $("pdWa").href=wa("Halo, saya ingin mendapatkan informasi mengenai "+p.name+" Mandala Finance.");
+    var m=$("pdMore");m.style.display=p.url?"":"none";if(p.url)m.href=p.url;
+    dlg.showModal();
+  }
+  $("pdX").onclick=function(){dlg.close()};$("pdSim").onclick=function(){go(2)};
+  dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+
+  /* ---- faq ---- */
+  CONFIG.faq.forEach(function(f,i){
+    var d=document.createElement("div");d.className="ai";
+    d.innerHTML='<button aria-expanded="false" aria-controls="a'+i+'"></button><div class="ab" id="a'+i+'"><div><p></p></div></div>';
+    d.querySelector("button").textContent=f[0];d.querySelector("p").textContent=f[1];
+    d.querySelector("button").onclick=function(){var o=d.classList.toggle("open");this.setAttribute("aria-expanded",o)};
+    $("acc").appendChild(d);
+  });
+
+  /* ---- simulator ---- */
+  var amt=$("amt"),ten=$("ten");
+  CONFIG.tenors.forEach(function(t){ten.add(new Option(t+" bulan",t))});ten.value=12;
+  function sim(){
+    var p=num(amt.value),n=+ten.value,err=$("amtErr");
+    if(p<CONFIG.minAmount||p>CONFIG.maxAmount){err.textContent="Masukkan jumlah antara "+rp(CONFIG.minAmount)+" dan "+rp(CONFIG.maxAmount)+".";$("monthly").textContent="–";$("simNote").textContent="–";return}
+    err.textContent="";var r=CONFIG.ratePerMonth,m;
+    if(r==null){m=p/n;$("simNote").textContent="Pokok pembiayaan dibagi tenor. Belum termasuk bunga, biaya, dan asuransi. Besaran resmi diinformasikan oleh sales."}
+    else{m=(p+p*(r/100)*n)/n;$("simNote").textContent="Estimasi dengan bunga flat "+r+"% per bulan. Belum termasuk biaya lain."}
+    $("monthly").textContent=rp(m)+" / bln";
+    $("simWa").href=wa("Halo, saya ingin konsultasi pembiayaan sebesar "+rp(p)+" dengan tenor "+n+" bulan.");
+  }
+  amt.addEventListener("input",function(){var v=num(amt.value);amt.value=v?rp(v):"";sim()});
+  ten.addEventListener("change",sim);$("simForm").addEventListener("submit",function(e){e.preventDefault();sim()});sim();
+
+  /* ---- form lead ---- */
+  var validWa=function(s){return /^(\+?62|0)8[1-9][0-9]{6,11}$/.test(s.replace(/[\s-]/g,""))};
+  $("leadForm").addEventListener("submit",function(e){
+    e.preventDefault();var ok=true,nm=$("nm").value.trim(),w=$("wa").value.trim(),st=$("status");
+    $("nmErr").textContent=nm.length<3?(ok=false,"Isi nama lengkap Anda."):"";
+    $("waErr").textContent=validWa(w)?"":(ok=false,"Nomor WhatsApp tidak valid. Contoh: 081234567890.");
+    if(!ok)return;
+    var msg="Halo, saya "+nm+($("kt").value?" dari "+$("kt").value:"")+". Saya ingin konsultasi "+jn.value+(nl.value?" dengan nilai sekitar "+nl.value:"")+". Nomor WhatsApp saya "+w+"."+($("ps").value?" Pesan: "+$("ps").value:"");
+    st.className="status wait";st.textContent="Menyiapkan data Anda…";
+    var done=function(sent){st.className="status ok";st.innerHTML=(sent?"Data Anda berhasil dikirim. ":"Data siap dikirim ke sales. ")+"Lanjutkan lewat WhatsApp agar sales bisa segera membantu.<br>";
+      var a=document.createElement("a");a.className="btn btn-w";a.href=wa(msg);a.target="_blank";a.rel="noopener";a.textContent="Buka WhatsApp";st.appendChild(a)};
+    if(CONFIG.formEndpoint){fetch(CONFIG.formEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nama:nm,whatsapp:w,kota:$("kt").value,produk:jn.value,nilai:nl.value,pesan:$("ps").value})}).then(function(r){done(r.ok)}).catch(function(){done(false)})}
+    else setTimeout(function(){done(false)},400);
+  });
+
+  $("finalCta").onclick=function(){var n=$("nm");n.scrollIntoView({block:"center",behavior:reduce?"auto":"smooth"});setTimeout(function(){n.focus({preventScroll:true})},400)};
+  $("wab").href=wa("Halo, saya ingin mendapatkan informasi mengenai pembiayaan Mandala Finance.");
+
+  /* ---- parallax ringan di Beranda ---- */
+  if(!reduce)slides[0].addEventListener("mousemove",function(e){var x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;$("vis").style.transform="translate("+x*18+"px,"+y*18+"px)"});
+
+  /* ---- mulai + intro ---- */
+  go(routeIndex(),true);
+  if(!reduce){setTimeout(function(){$("intro").classList.add("out")},1000);setTimeout(function(){$("intro").remove()},1700)}else $("intro").remove();
+})();
+</script>
+</body>
+</html>
